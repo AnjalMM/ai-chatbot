@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const mongourl = "mongodb+srv://mmanjal120:2s3lBQnWa8rrVBYc@cluster0.j0w2sjt.mongodb.net/chatbot?retryWrites=true&w=majority&appName=Cluster0";
+const mongourl = process.env.db_url;
 
  mongoose.connect(mongourl,{useNewUrlparser:true,useUnifiedTopology:true});
 

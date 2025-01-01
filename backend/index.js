@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config();
 require('mongoose')
 require('./db')
 
@@ -9,6 +10,6 @@ app.get('/',(req,res)=>{
 })
 
 
-const port = process.env.PORT || 5000 ;
+const port = process.env.PORT;
 
 app.listen(port,()=>{console.log(`server is running succesfully on ${port}`)});
