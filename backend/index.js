@@ -26,3 +26,5 @@ app.listen(port,()=>{
     console.log(`server is running succesfully on ${port}`)
     connectDb()
 });
+
+
