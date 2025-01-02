@@ -17,3 +17,18 @@ export const createChat = async (req, res) => {
       });
     }
   };
+
+  export const getAllChats = async (req, res) => {
+    try {
+      const chats = await Chat.find({ user: req.user._id }).sort({
+        createdAt: -1,
+      });
+  
+      res.json(chats);
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+  
