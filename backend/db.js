@@ -1,23 +1,15 @@
-const mongoose = require('mongoose')
+import mongoose from "mongoose";
 
-const mongourl = process.env.db_url;
+const connectDb = async () => {
+  try {
+    await mongoose.connect(process.env.Db_url, {
+      dbName: "ChatbotYoutube",
+    });
 
- mongoose.connect(mongourl,{useNewUrlparser:true,useUnifiedTopology:true});
+    console.log("Mongo db connected");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
- const db = mongoose.connection;
-db.on('connected',()=>{
-  console.log('mongodb connection succesfully');
-  
-})
-
-db.on('error',()=>{
-    console.log('mongo connection have an error');
-    
-})
-
-db.on('close',()=>{
-    console.log('mongodb connection is closed');
-    
-})
-
-module.exports = mongoose;
+export default connectDb;

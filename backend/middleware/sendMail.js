@@ -1,16 +1,15 @@
-const nodemailer = require('nodemailer')
+import { createTransport } from "nodemailer";
 
-const sendMail = async (email,subject,otp) =>{
-    const transport = nodemailer.createTransport({
-            host : "smtp.gmail.com",
-            port : 465,
-            auth:{
-               user: process.env.Gmail,
-               pass: process.env.password,
-            }
-    })
+const sendMail = async (email, subject, otp) => {
+  const transport = createTransport({
+   service : 'gmail',
+   auth : {
+    user : process.env.Gmail,
+    pass : process.env.password,
+   }
+  });
 
-    const html = `<!DOCTYPE html>
+  const html =  `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -57,15 +56,12 @@ const sendMail = async (email,subject,otp) =>{
  </html>
 `;
 
-
-
-await transport.sendMail({
+  await transport.sendMail({
     from: process.env.Gmail,
     to: email,
     subject,
     html,
   });
+};
 
-}
-
-module.exports = sendMail;
+export default sendMail;
