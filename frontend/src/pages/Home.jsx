@@ -1,10 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
+import Sidebar from '../components/Sidebar'
 
 export default function Home() {
+
+  const [isOpen,setIsOpen] = useState(false)
+
+  const toggleSidebar =()=>{
+    setIsOpen(!isOpen)
+  }
   return (
-    <div>
-      <h1 className='text-white'>home</h1>
+    <div className='flex h-screen bg-gray-500 text-white'>
+      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar}/>
     </div>
   )
 }
