@@ -3,6 +3,7 @@ import { createContext, useContext, useState} from 'react'
 import toast from 'react-hot-toast'
 import axios from "axios"
 import { server } from '../main'
+import { useEffect } from 'react'
 
 const UserContext = createContext()
 
@@ -52,8 +53,32 @@ const UserContext = createContext()
         }
       }
 
+      const [loading, setLoading] = useState(true);
+
+  async function fetchUser() {
+    try {
+      const { data } = await axios.get(`${server}/api/user/me`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+
+      setIsAuth(true);
+      setUser(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsAuth(false);
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
     return (
-        <UserContext.Provider value={{loginUser,btnLoading,isAuth,setIsAuth,user,verifyUser}}>
+        <UserContext.Provider value={{loginUser,btnLoading,isAuth,setIsAuth,user,verifyUser,loading}}>
             {children}
         </UserContext.Provider>
     )

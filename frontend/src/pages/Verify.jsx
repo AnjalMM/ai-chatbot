@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { UserData } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import { LoadingSpinner } from '../components/Loading'
 
 export const Verify = () => {
 
@@ -43,7 +44,7 @@ export const Verify = () => {
         <button
           className="bg-blue-500 text-white  py-2 px-4 rounded hover:bg-blue-700"
          
-        >{btnLoading?"please wait ...":"Submit"}
+        >{btnLoading?<LoadingSpinner/>:"Submit"}
         
         </button>
       </form>
