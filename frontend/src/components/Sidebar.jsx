@@ -2,8 +2,18 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { IoIosCloseCircle } from "react-icons/io"
+import { ChatData } from '../context/chatContext'
+import { MdDelete } from "react-icons/md";
+import { LoadingSpinner } from './Loading';
 
 const Sidebar =({isOpen,toggleSidebar})=> {
+    const {chats , createChat,createLod,setselected,deleteChat}= ChatData()
+
+    const deleteChatHandler =(id)=>{
+          if(confirm("are you sure to delete")){
+            deleteChat(id)
+          }
+    }
   return (
     <div className={`fixed inset-0 bg-gray-800 p-4 transition-transform transform md:relative md:translate-x-0 md:w-1/4 md:block ${isOpen?"translate-x-0":
         "-translate-x-full"
@@ -13,17 +23,25 @@ const Sidebar =({isOpen,toggleSidebar})=> {
         <div className="text-2xl font-semibold mb-6">ChatBot</div>
       <div className="mb-4">
         <button
-       
+           onClick={createChat}
           className="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded"
         >
-          New Chat +
+         {createLod?<LoadingSpinner/>:" New Chat +"}
         </button>
       </div>
       <div>
       <p className="text-sm text-gray-400 mb-2">Recent</p>
       <div className='max-h-[500px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar'>
-        <button className='w-full text-left py-2 bg-gray-700 hover:bg-gray-600 rounded mt-2 
-        flex justify-center items-center'>hello how are you</button>
+        {
+            chats && chats.length>0? (chats.map((e,i)=>(
+                <button key={i} className='w-full text-left py-2 bg-gray-700 hover:bg-gray-600 rounded mt-2 
+                flex justify-between items-center' onClick={()=>{ setselected(e._id)}}>
+                    <span>{e.latestMessage.slice(0,38)}...</span>
+                    <button className='bg-red-600 text-white text-xl px-3 py-2 rounded-md
+         hover:bg-red-700' onClick={()=>deleteChatHandler(e._id)}><MdDelete/></button>
+                </button>
+            ))) : (<p> no chat yet</p>)
+        }
       </div>
       </div>
 
