@@ -1,13 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
+import { UserData } from '../context/UserContext'
+import { useNavigate } from 'react-router-dom'
+import { LoadingSpinner } from '../components/Loading'
+
 
 export const Verify = () => {
 
   const [otp,setotp]=useState("")
+  const {verifyUser,btnLoading} = UserData()
+  
+
+  const navigate = useNavigate()
 
   const submitHandler =(e)=>{
     e.preventDefault()
-    console.log(otp);
+    verifyUser(Number(otp),navigate);
     
   }
   return (
@@ -38,7 +46,7 @@ export const Verify = () => {
         <button
           className="bg-blue-500 text-white  py-2 px-4 rounded hover:bg-blue-700"
          
-        >submit
+        >{btnLoading?<LoadingSpinner/>:"Submit"}
         
         </button>
       </form>

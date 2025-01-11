@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    margin: 0;
+    padding: 0;
+}
 body{
+    overflow: hidden;
+    box-sizing: border-box;
     @apply bg-slate-900;
+}
+
+.thin-scrollbar{
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
 }

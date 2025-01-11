@@ -4,20 +4,24 @@ import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Home from './pages/Home'
 import { Verify } from './pages/Verify'
 import Login from './pages/Login'
+import { UserData } from './context/UserContext'
+import { LoadingBig } from './components/Loading'
+
+
+
 
 
 export default function App() {
+  const {user,isAuth,loading} = UserData()
   return (
     <div>
-     <BrowserRouter>
+     {loading?(<LoadingBig/>):(<BrowserRouter>
      <Routes>
-
-      <Route path='/' element={<Home/>}/>
-      <Route path='/login' element={<Login/>}/>
-      <Route path='/verify' element={<Verify/>}/>
-
+      <Route path='/' element={isAuth?<Home/>:<Login/>}/>
+      <Route path='/login' element={isAuth?<Home/>:<Login/>}/>
+      <Route path='/verify' element={isAuth?<Home/>:<Verify/>}/>
      </Routes>
-     </BrowserRouter>
+     </BrowserRouter>)}
     </div>
   )
 }

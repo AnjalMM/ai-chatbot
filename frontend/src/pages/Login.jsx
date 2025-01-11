@@ -1,13 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { useState } from 'react'
+import { UserData } from '../context/UserContext'
+import { useNavigate } from 'react-router-dom'
+import { LoadingSpinner } from '../components/Loading'
 
 export default function Login() {
   const [email,setEmail]=useState("")
 
+  const {loginUser,btnLoading} = UserData()
+
+const navigate = useNavigate()
   const submitHandler =(e)=>{
     e.preventDefault()
-    console.log(email);
+    loginUser(email,navigate);
     
   }
   return (
@@ -37,9 +43,9 @@ export default function Login() {
         </div>
 
         <button
-          className="bg-blue-500 text-white  py-2 px-4 rounded hover:bg-blue-700"
-         
-        >submit
+          className="bg-blue-500 text-white  py-2 px-4 rounded hover:bg-blue-700" 
+         disabled={btnLoading}
+        >{btnLoading? <LoadingSpinner/>:"Submit"}
         
         </button>
       </form>
