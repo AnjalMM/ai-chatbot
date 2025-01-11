@@ -134,7 +134,7 @@ export const ChatProvider =({children})=>{
     useEffect(()=>{
         fetchMessages()
     },[selected])
- return <chatContext.Provider value={{fetchResponse,messages,prompt,setPrompt,newRequestloading , chats,createChat,createLod,selected,setselected,loading,setLoading,deleteChat}}>
+ return <chatContext.Provider value={{fetchResponse,messages,prompt,setPrompt,newRequestloading , chats,createChat,createLod,selected,setselected,loading,setLoading,deleteChat,fetchChats}}>
     {children}
  </chatContext.Provider>
 }

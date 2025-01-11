@@ -74,7 +74,7 @@ export default function Home() {
          {newRequestloading && <LoadingSmall/>}
         </div>
        )}
-       <div className='fixed bottom-0 left-auto p-4 bg-gray-900 w-full 
+       <div className='fixed bottom-0 left-auto p-4 bg-gray-500 w-full 
       md:w-[75%]'>
         <form action="" className='flex justify-center items-center' onSubmit={submitHandler}>
           <input 

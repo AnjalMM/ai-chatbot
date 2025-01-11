@@ -4,10 +4,12 @@ import { UserData } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { LoadingSpinner } from '../components/Loading'
 
+
 export const Verify = () => {
 
   const [otp,setotp]=useState("")
   const {verifyUser,btnLoading} = UserData()
+  
 
   const navigate = useNavigate()
 

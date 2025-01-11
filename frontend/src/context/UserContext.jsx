@@ -5,11 +5,13 @@ import axios from "axios"
 import { server } from '../main'
 import { useEffect } from 'react'
 
+
 const UserContext = createContext()
 
  // eslint-disable-next-line react/prop-types
  export const  UserProvider = ({children}) =>{
     const [btnLoading, setBtnLoading] = useState(false);
+    
     async function loginUser(email, navigate) {
         setBtnLoading(true);
         try {
@@ -25,10 +27,10 @@ const UserContext = createContext()
           setBtnLoading(false);
         }
       }
-
+   
       const [user,setUser] = useState([])
       const [isAuth,setIsAuth]=useState(false)
-
+     
       async function verifyUser(otp, navigate) {
         const verifyToken = localStorage.getItem("verifyToken");
         setBtnLoading(true);
@@ -47,6 +49,7 @@ const UserContext = createContext()
           setBtnLoading(false);
           setIsAuth(true)
           setUser(data.user)
+         
         } catch (error) {
           toast.error(error.response.data.message);
           setBtnLoading(false);
@@ -73,12 +76,22 @@ const UserContext = createContext()
     }
   }
 
+  const logoutHandler = (navigate) => {
+    localStorage.clear();
+
+    toast.success("logged out");
+    setIsAuth(false);
+    setUser([]);
+    navigate("/login");
+  };
+
+
   useEffect(() => {
     fetchUser();
   }, []);
 
     return (
-        <UserContext.Provider value={{loginUser,btnLoading,isAuth,setIsAuth,user,verifyUser,loading}}>
+        <UserContext.Provider value={{loginUser,btnLoading,isAuth,setIsAuth,user,verifyUser,loading,logoutHandler}}>
             {children}
         </UserContext.Provider>
     )

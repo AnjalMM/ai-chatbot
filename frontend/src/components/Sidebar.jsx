@@ -5,9 +5,12 @@ import { IoIosCloseCircle } from "react-icons/io"
 import { ChatData } from '../context/chatContext'
 import { MdDelete } from "react-icons/md";
 import { LoadingSpinner } from './Loading';
+import { UserData } from '../context/UserContext';
 
 const Sidebar =({isOpen,toggleSidebar})=> {
     const {chats , createChat,createLod,setselected,deleteChat}= ChatData()
+
+    const {logoutHandler}= UserData()
 
     const deleteChatHandler =(id)=>{
           if(confirm("are you sure to delete")){
@@ -47,7 +50,7 @@ const Sidebar =({isOpen,toggleSidebar})=> {
 
       <div className='absolute bottom-0 mb-6 w-full'>
         <button className='bg-red-600 text-white text-xl px-3 py-2 rounded-md
-         hover:bg-red-700'>
+         hover:bg-red-700' onClick={logoutHandler}>
             Log out
         </button>
       </div>
