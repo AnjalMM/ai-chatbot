@@ -9,7 +9,7 @@ import { FaRobot } from "react-icons/fa";
 import { LoadingBig, LoadingSmall } from '../components/Loading';
 import { IoMdSend } from "react-icons/io";
 
-export default function Home() {
+export  function Home() {
 
   const [isOpen,setIsOpen] = useState(false)
 
@@ -33,6 +33,7 @@ export default function Home() {
         behavior: "smooth",
       });
     }
+    
   },[messages])
   return (
     <div className='flex h-screen bg-gray-500 text-white'>
@@ -46,7 +47,7 @@ export default function Home() {
        <Header/>
 
        {loading ? (<LoadingBig/>):(
-        <div className='flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 
+        <div className='p-6 max-h-[500px] overflow-auto 
         thin-scrollbar' ref={messagecontainerRef}>
          {
            messages && messages.length>0? (messages.map((e,i)=>(
@@ -62,10 +63,14 @@ export default function Home() {
                <div className='mb-4 p-4 rounded bg-gray-700 text-white'>
                <div className='bg-white p-2 rounded-full text-black text-2xl h-10'>
                     <FaRobot/>
+                    
                  </div>
- 
-                  <p dangerouslySetInnerHTML={{__html:e.answer}}></p>
-                 
+                
+                  
+                   <p dangerouslySetInnerHTML={{__html:e.answer}}></p>
+                  
+                  
+                
                </div>
              </div>
            ))): (<p>no chat yet</p>)
@@ -74,11 +79,11 @@ export default function Home() {
          {newRequestloading && <LoadingSmall/>}
         </div>
        )}
-       <div className='fixed bottom-0 left-auto p-4 bg-gray-500 w-full 
-      md:w-[75%]'>
-        <form action="" className='flex justify-center items-center' onSubmit={submitHandler}>
+       <div className='fixed bottom-1   p-1 bg-gray-500 w-full 
+      md:w-[70%]'>
+        <form action="" className='flex ' onSubmit={submitHandler}>
           <input 
-          className='flex-grow p-4 bg-gray-700 rounded-l text-white outline-none'
+          className='flex-grow pr-1 p-4 bg-gray-700 rounded text-white outline-none'
            type="text" placeholder='enter a promt here' value={prompt} onChange={e=>{setPrompt(e.target.value)}} 
           required />
           <button className='p-4 bg-gray-700 rounded-r text-2xl text-white'><IoMdSend/></button>

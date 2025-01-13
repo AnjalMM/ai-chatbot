@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 const chatContext = createContext()
 export const ChatProvider =({children})=>{
     const [messages , setMessages] = useState([])
+    const [inform,setinform] = useState([])
     const [prompt,setPrompt] = useState("")
 
     const [newRequestloading,setnewRequestloading]=useState(false)
@@ -64,6 +65,10 @@ export const ChatProvider =({children})=>{
             })
             setchats(data)
             setselected(data[0]._id)
+            console.log(data[0]._id);
+            console.log(data);
+            
+            
         } catch (error) {
             console.log(error);
             
@@ -98,12 +103,12 @@ export const ChatProvider =({children})=>{
     async function fetchMessages() {
       setLoading(true);
       try {
-        const { data } = await axios.get(`${server}/api/chat/${selected}`, {
+        const { data } = await axios.get(`${server}/api/chat/${selected}`, {},{
           headers: {
             token: localStorage.getItem("token"),
           },
         });
-        setMessages(data);
+        setinform(data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -133,7 +138,7 @@ export const ChatProvider =({children})=>{
 
     useEffect(()=>{
         fetchMessages()
-    },[selected])
+    },[])
  return <chatContext.Provider value={{fetchResponse,messages,prompt,setPrompt,newRequestloading , chats,createChat,createLod,selected,setselected,loading,setLoading,deleteChat,fetchChats}}>
     {children}
  </chatContext.Provider>

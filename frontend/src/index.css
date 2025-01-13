@@ -5,10 +5,14 @@
 *{
     margin: 0;
     padding: 0;
+    
+}
+body::-webkit-scrollbar{
+    display: none;
 }
 body{
-    overflow: hidden;
-    box-sizing: border-box;
+    
+    
     @apply bg-slate-900;
 }
 

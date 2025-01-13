@@ -60,7 +60,7 @@ const UserContext = createContext()
 
   async function fetchUser() {
     try {
-      const { data } = await axios.get(`${server}/api/user/me`, {
+      const { data } = await axios.get(`${server}/api/users/me`, {
         headers: {
           token: localStorage.getItem("token"),
         },
