@@ -8,6 +8,7 @@ import cors from "cors"
 import userRouter from "./Routes/userRouter.js"
 import chatRouter from "./Routes/chatRouter.js"
 
+
 dotenv.config()
 const app = express();
 app.use(express.json());

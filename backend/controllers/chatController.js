@@ -1,4 +1,4 @@
-
+import mongoose from "mongoose";
 import {Chat} from "../models/chat.js"
 import {Conversation} from "../models/conversation.js"
 
@@ -67,9 +67,11 @@ export const createChat = async (req, res) => {
   
 
   export const getConversation = async (req, res) => {
+     
     try {
-      const conversation = await Conversation.find({ chat: req.params.id });
-  
+      const conversation = await Conversation.find({chat: req.params.id});
+   
+   
       if (!conversation)
         return res.status(404).json({
           message: "No conversation with this id",

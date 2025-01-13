@@ -5,7 +5,7 @@ import { UserData } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { LoadingSpinner } from '../components/Loading'
 
-export default function Login() {
+export  function Login() {
   const [email,setEmail]=useState("")
 
   const {loginUser,btnLoading} = UserData()
