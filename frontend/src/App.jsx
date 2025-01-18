@@ -24,10 +24,7 @@ export default function App() {
      </Routes>
      </BrowserRouter>)}
     </div>
-    // hello
-      //  newpush
-      // newone
-      // newwwwww
-      // newemail
+    
   )
+
 }
