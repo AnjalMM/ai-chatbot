@@ -23,8 +23,9 @@ export default function App() {
       <Route path='/verify' element={<Verify/>}/>
      </Routes>
      </BrowserRouter>)}
+     
     </div>
-    
+    // goo
   )
 
 }
