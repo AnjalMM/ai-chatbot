@@ -23,11 +23,9 @@ export default function App() {
       <Route path='/verify' element={<Verify/>}/>
      </Routes>
      </BrowserRouter>)}
+     
     </div>
-    // hello
-      //  newpush
-      // newone
-      // newwwwww
-      // newemail
+    // goo
   )
+
 }
