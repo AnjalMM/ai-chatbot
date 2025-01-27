@@ -36,7 +36,8 @@ export  function Home() {
     
   },[messages])
   return (
-    <div className='flex h-screen bg-gray-500 text-white'>
+    <div className='h-screen'>
+          <div className='flex h-screen bg-gray-500 text-white'>
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar}/>
 
      <div className='flex flex-1 flex-col'>
@@ -47,8 +48,8 @@ export  function Home() {
        <Header/>
 
        {loading ? (<LoadingBig/>):(
-        <div className='p-6 max-h-[500px] overflow-auto 
-        thin-scrollbar' ref={messagecontainerRef}>
+        <div className='p-6 max-h-[530px] overflow-auto 
+         thin-scrollbar23 ' ref={messagecontainerRef}>
          {
            messages && messages.length>0? (messages.map((e,i)=>(
              <div key={i}>
@@ -94,5 +95,7 @@ export  function Home() {
      </div>
      
     </div>
+    </div>
+   
   )
 }
