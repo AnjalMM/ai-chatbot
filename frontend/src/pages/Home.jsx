@@ -47,7 +47,8 @@ export  function Home() {
        <Header/>
 
        {loading ? (<LoadingBig/>):(
-        <div className='p-6 max-h-[500px] overflow-auto 
+        <div className=''>
+             <div className='p-6 md:max-h-[550px] overflow-auto 
         thin-scrollbar' ref={messagecontainerRef}>
          {
            messages && messages.length>0? (messages.map((e,i)=>(
@@ -78,6 +79,8 @@ export  function Home() {
  
          {newRequestloading && <LoadingSmall/>}
         </div>
+        </div>
+       
        )}
        <div className='fixed bottom-1   p-1 bg-gray-500 w-full 
       md:w-[70%]'>
