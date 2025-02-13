@@ -37,8 +37,8 @@ const Sidebar =({isOpen,toggleSidebar})=> {
       <div className='max-h-[500px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar'>
         {
             chats && chats.length>0? (chats.map((e,i)=>(
-                <button key={i} className='w-full text-left py-2 bg-gray-700 hover:bg-gray-600 rounded mt-2 
-                flex justify-between items-center' onClick={()=>{ setselected(e._id)}}>
+                <button key={i} onClick={() => setselected(e._id) } className='w-full text-left py-2 bg-gray-700 hover:bg-gray-600 rounded mt-2 
+                flex justify-between items-center' >
                     <span>{e.latestMessage.slice(0,38)}...</span>
                     <button className='bg-red-600 text-white text-xl px-3 py-2 rounded-md
          hover:bg-red-700' onClick={()=>deleteChatHandler(e._id)}><MdDelete/></button>

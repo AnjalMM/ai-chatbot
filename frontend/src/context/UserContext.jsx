@@ -31,7 +31,7 @@ const UserContext = createContext()
       const [user,setUser] = useState([])
       const [isAuth,setIsAuth]=useState(false)
      
-      async function verifyUser(otp, navigate) {
+      async function verifyUser(otp, navigate,fetchChats) {
         const verifyToken = localStorage.getItem("verifyToken");
         setBtnLoading(true);
     
@@ -49,7 +49,7 @@ const UserContext = createContext()
           setBtnLoading(false);
           setIsAuth(true)
           setUser(data.user)
-         
+          fetchChats()
         } catch (error) {
           toast.error(error.response.data.message);
           setBtnLoading(false);
