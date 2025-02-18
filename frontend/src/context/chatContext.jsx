@@ -4,7 +4,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { server } from "../main";
 import toast from "react-hot-toast";
-import {datakeybygemini} from './geminiapi'
+
 
 
 const chatContext = createContext();
