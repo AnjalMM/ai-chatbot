@@ -4,7 +4,10 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { server } from "../main";
 import toast from "react-hot-toast";
+import {datakeybygemini} from './geminiapi'
 
+
+<<<<<<< HEAD
 const chatContext = createContext();
 export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
@@ -25,6 +28,28 @@ export const ChatProvider = ({ children }) => {
           contents: [{ parts: [{ text: prompt }] }],
         },
       });
+=======
+const chatContext = createContext()
+export const ChatProvider =({children})=>{
+    const [messages , setMessages] = useState([])
+    const [inform,setinform] = useState([])
+    const [prompt,setPrompt] = useState("")
+  
+    const [newRequestloading,setnewRequestloading]=useState(false)
+
+    async function  fetchResponse() {
+      if(prompt==="")return alert("write prompt")
+        setnewRequestloading(true)
+    setPrompt("")
+        try {
+            const  response = await axios({
+                url:`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${datakeybygemini}`,
+                method:"post",
+                data:{
+                    contents:[{parts:[{text:prompt}]}],
+                }
+            })
+>>>>>>> master
 
       const message = {
         question: prompt,

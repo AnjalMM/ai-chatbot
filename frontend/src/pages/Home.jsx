@@ -56,6 +56,7 @@ export function Home() {
           <div className="flex-1 p-6 mb-20 md:mb-0">
             <Header />
 
+
             {loading ? (
               <LoadingBig />
             ) : (
@@ -112,7 +113,53 @@ export function Home() {
             </div>
           </div>
         </div>
+       {loading ? (<LoadingBig/>):(
+        <div className=''>
+             <div className='p-6 md:max-h-[550px] overflow-auto 
+        thin-scrollbar' ref={messagecontainerRef}>
+         {
+           messages && messages.length>0? (messages.map((e,i)=>(
+             <div key={i}>
+               <div className='mb-4 p-4 rounded bg-blue-700 text-white'>
+                 <div className='bg-white p-2 rounded-full text-black text-2xl h-10'>
+                    <CgProfile/>
+                 </div>
+ 
+                  {e.question}
+ 
+               </div>
+               <div className='mb-4 p-4 rounded bg-gray-700 text-white'>
+               <div className='bg-white p-2 rounded-full text-black text-2xl h-10'>
+                    <FaRobot/>
+                    
+                 </div>
+                
+                  
+                   <p dangerouslySetInnerHTML={{__html:e.answer}}></p>
+                  
+                  
+                
+               </div>
+             </div>
+           ))): (<p>no chat yet</p>)
+         }
+ 
+         {newRequestloading && <LoadingSmall/>}
+        </div>
+        </div>
+       
+       )}
+       <div className='fixed bottom-1   p-1 bg-gray-500 w-full 
+      md:w-[70%]'>
+        <form action="" className='flex ' onSubmit={submitHandler}>
+          <input 
+          className='flex-grow pr-1 p-4 bg-gray-700 rounded text-white outline-none'
+           type="text" placeholder='enter a promt here' value={prompt} onChange={e=>{setPrompt(e.target.value)}} 
+          required />
+          <button className='p-4 bg-gray-700 rounded-r text-2xl text-white'><IoMdSend/></button>
+        </form>
       </div>
+    </div>
     </div>
   );
 }
