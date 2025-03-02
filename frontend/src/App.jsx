@@ -6,6 +6,8 @@ import { Verify } from './pages/Verify'
 import {Login} from './pages/Login'
 import { UserData } from './context/UserContext'
 import { LoadingBig } from './components/Loading'
+import Landingpage from './pages/Landingpage'
+
 
 
 
@@ -18,7 +20,8 @@ export default function App() {
     <div>
      {loading?(<LoadingBig/>):(<BrowserRouter>
      <Routes>
-      <Route path='/' element={isAuth?<Home/>:<Login/>}/>
+      <Route path='/' element={<Landingpage/>}/>
+      <Route path='/chat' element={isAuth?<Home/>:<Login/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/verify' element={<Verify/>}/>
      </Routes>
