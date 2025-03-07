@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
 import ai from '../assets/ai-technology.svg'
-// import arrow from '../arrow.svg'
+import arrow from '../assets/arrow.svg'
 import cpu from '../assets/cpu.svg'
 import database from '../assets/database.svg'
 import globe from '../assets/globe.svg'
@@ -13,40 +13,114 @@ import microchipai from '../assets/microchip-ai.svg'
 // import userrobot from '../assets/user-robot.svg'
 import wifi from '../assets/wifi-password.svg'
 import { useNavigate } from 'react-router-dom'
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 export default function Landingpage() {
 
   const navigate = useNavigate();
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const faqs = [
+    {
+      question: "What is this chatbot?",
+      answer:
+        "Our chatbot is an AI-powered assistant designed to help you with instant responses, automated support, and smart interactions for a seamless experience.",
+    },
+    {
+      question: "How does the chatbot work?",
+      answer:
+        "The chatbot uses Natural Language Processing (NLP) and AI to understand your queries and provide accurate responses.",
+    },
+    {
+      question: "Is my data secure?",
+      answer:
+        "Absolutely! We prioritize your privacy and follow strict security protocols to ensure your data remains confidential.",
+    },
+    {
+      question: "Do I need an account to use the chatbot?",
+      answer:
+        "No, you can start chatting instantly! However, creating an account unlocks additional features such as chat history and personalized responses.",
+    },
+  ];
   return (
     
          <div className="bg-gray-50 m-0 p-0 box-border">
       {/* Navbar with Sign In/Sign Up */}
-      <nav className="fixed flex justify-end items-center bg-white/10 backdrop-blur-lg shadow-lg py-2 w-full z-10">
-        <div className="flex space-x-4 mr-5">
-           
-           <ul className='flex gap-8 px-52 text-xl pt-2 pb-2 font-extrabold leading-relaxed text-blue-900'>
-               <li><a href="">Home</a></li>
-               <li><a href="">Features</a></li>
-               <li><a href="">How its Working</a></li>
-               <li><a href="">FAQs</a></li>
-               <li><a href="">Contacts</a></li>
-           </ul>
-         
-          
-          <a onClick={()=>navigate("/login")} className="px-4 pt-3 py-2  border bg-blue-300 border-gray-500 text-blue-900 rounded-full shadow-lg hover:bg-white hover:text-blue-600">Sign In</a>
-          <a onClick={()=>{navigate("/signup")}} className="px-4 pt-3 py-2 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200">Sign Up</a>
-        </div>
-      </nav>
+      <nav className="fixed z-10 top-0 left-0 w-full flex justify-between items-center bg-gradient-to-r from-blue-500 to-indigo-600 backdrop-blur-lg shadow-lg py-4 px-8 z-20">
+      {/* Brand Logo */}
+      <h1 className="text-2xl font-extrabold text-white tracking-wide">Neurofy</h1>
+
+      {/* Navigation Links */}
+      <ul className="flex gap-10 text-lg font-semibold text-white">
+        <li className="hover:text-gray-300 transition-transform transform hover:scale-105">
+          <a href="#Homenav">Home</a>
+        </li>
+        <li className="hover:text-gray-300 transition-transform transform hover:scale-105">
+          <a href="#featuresnav">Features</a>
+        </li>
+        <li className="hover:text-gray-300 transition-transform transform hover:scale-105">
+          <a href="#howitworknav">How It Works</a>
+        </li>
+        <li className="hover:text-gray-300 transition-transform transform hover:scale-105">
+          <a href="#faqnav">FAQs</a>
+        </li>
+        <li className="hover:text-gray-300 transition-transform transform hover:scale-105">
+          <a href="#contactsnav">Contact</a>
+        </li>
+      </ul>
+
+      {/* Auth Buttons */}
+      <div className="flex gap-4">
+        <button
+          onClick={() => navigate("/login")}
+          className="px-6 py-2 border border-white text-white font-semibold rounded-full shadow-md hover:bg-white hover:text-blue-600 transition duration-300"
+        >
+          Sign In
+        </button>
+        <button
+          onClick={() => navigate("/signup")}
+          className="px-6 py-2 bg-white text-blue-600 font-semibold rounded-full shadow-md hover:bg-gray-200 transition duration-300"
+        >
+          Sign Up
+        </button>
+      </div>
+    </nav>
       
       {/* Hero Section */}
-      <header className="bg-gradient-to-r h-[100vh] from-blue-200 to-purple-400 text-white py-20 text-center relative">
-        <h1 className="mt-[15%] pt-100 text-4xl md:text-4xl font-bold">Your Smartest Digital Assistant - Powered by AI!</h1>
-        <p className="mt-4 text-lg md:text-xl">Your intelligent virtual assistant that simplifies communication<br/>and boosts productivity with <span className='font-serif text-3xl text-black'>Neurofy</span></p>
-        <button className="ml-[42%] mt-6 px-5 py-3 flex items-center gap-2 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200">Start Chatting Now!<span><img  alt="arrow" className=' w-3 h-4'/></span></button>
-      </header>
+      <header
+      id="Homenav"
+      className="relative w-full h-screen bg-cover bg-center flex flex-col justify-center items-center text-white text-center px-6"
+      style={{
+        backgroundImage: "url('https://bluesoft.com/wp-content/uploads/2024/11/MicrosoftTeams-image.jpg')",
+      }}
+    >
+      {/* Dark overlay for better text contrast */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-3xl">
+        <h1 className="text-4xl md:text-5xl font-extrabold">
+          Your Smartest Digital Assistant - Powered by AI!
+        </h1>
+        <p className="mt-4 text-lg md:text-xl text-gray-200">
+          Your intelligent virtual assistant that simplifies communication
+          and boosts productivity with 
+          <span className="font-serif text-3xl text-yellow-400"> Neurofy</span>
+        </p>
+
+        {/* CTA Button */}
+        <button
+          onClick={() => navigate("/chat")}
+          className="mt-6 px-6 py-3 flex items-center gap-2 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200 transition duration-300"
+        >
+          Start Chatting Now!
+          <img src={arrow} alt="arrow" className="w-4 h-5" />
+        </button>
+      </div>
+    </header>
 
       {/* Features Section */}
-      <section className="h-[100vh] container mx-auto py-16 px-6">
+      <section id="featuresnav" className="h-[100vh] container mx-auto py-16 px-6">
         <h2 className="pt-20 text-3xl font-bold text-center mb-10">Our Features</h2>
         <div className="grid md:grid-cols-3 gap-10">
           <div className="p-6 bg-white rounded-lg shadow-md text-center">
@@ -112,7 +186,7 @@ export default function Landingpage() {
      </section>
 
       {/*How it work*/}
-      <section className="bg-gray-100 py-12">
+      <section id="howitworknav" className="bg-gray-100 py-12">
   <div className="container mx-auto text-center">
     <h2 className="text-3xl font-bold text-blue-600">How It Works</h2>
     <p className="text-gray-600 mt-4">Experience seamless AI-powered conversations in just a few simple steps.</p>
@@ -160,6 +234,27 @@ export default function Landingpage() {
   </div>
 </section>
 
+<section id="faqnav" className="max-w-4xl mx-auto my-12 px-6">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Frequently Asked Questions</h2>
+      <div className="space-y-4">
+        {faqs.map((faq, index) => {
+          const isOpen = openIndex === index;
+
+          return (
+            <div key={index} className="border border-gray-300 rounded-lg p-4 bg-white shadow-md">
+              <button
+                onClick={() => setOpenIndex(isOpen ? null : index)}
+                className="w-full flex justify-between items-center text-lg font-medium text-gray-900"
+              >
+                {faq.question}
+                {isOpen ? <FaChevronUp className="text-gray-600" /> : <FaChevronDown className="text-gray-600" />}
+              </button>
+              {isOpen && <p className="mt-3 text-gray-700">{faq.answer}</p>}
+            </div>
+          );
+        })}
+      </div>
+    </section>
 
       {/* Testimonials Section */}
       <section className="bg-gray-200 py-16">
@@ -183,7 +278,7 @@ export default function Landingpage() {
         <button className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700">Sign Up</button>
       </section>
 
-      <footer className=" h-screen bg-gray-900 text-white py-10">
+      <footer id="contactsnav" className=" h-screen bg-gray-900 text-white py-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
@@ -228,3 +323,4 @@ export default function Landingpage() {
     
   )
 }
+

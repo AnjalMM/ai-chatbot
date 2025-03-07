@@ -8,6 +8,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaRobot } from "react-icons/fa";
 import { LoadingBig, LoadingSmall } from "../components/Loading";
 import { IoMdSend } from "react-icons/io";
+import happybeam from '../assets/happy-beaming.svg'
 
 export function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,22 +36,22 @@ export function Home() {
 //    whitespace-pre-wrap
     // bg-gray-800 text-white p-4 rounded overflow-x-auto overflow-y-auto max-h-96 whitespace-pre-wrap w-full
 // Convert inline `code` to Tailwind-styled <code>
-text = text.replace(/`([^`]+)`/g, '<code class="bg-gray-200 px-1 rounded">$1</code>');
+text = text.replace(/`([^`]+)`/g, '<code class="bg-gray-700 px-1 rounded">$1</code>');
 
 // Convert **bold** to Tailwind-styled <p class="font-bold">
-text = text.replace(/\*\*(.*?)\*\*/g, '<p class="font-bold text-orange-500">$1</p>');
+text = text.replace(/\*\*(.*?)\*\*/g, '<p class="font-bold text-black">$1</p>');
 
 // Convert *italic* to Tailwind-styled <p class="italic">
-text = text.replace(/\*(.*?)\*/g, '<p class="italic text-blue-500">$1</p>');
+text = text.replace(/\*(.*?)\*/g, '<p class="italic text-black">$1</p>');
 
 // Convert Ordered Lists (1. or Step 1:)
-text = text.replace(/(?:^|\n)(\d+)\.\s(.*?)(?=\n|$)/g, '<p class="ml-4"><span class="font-bold text-purple-500">$1.</span> $2</p>');
-text = text.replace(/(?:^|\n)(Step\s\d+):\s(.*?)(?=\n|$)/gi, '<p class="ml-4"><span class="font-bold text-green-500">$1:</span> $2</p>');
+text = text.replace(/(?:^|\n)(\d+)\.\s(.*?)(?=\n|$)/g, '<p class="ml-4"><span class="font-bold text-black ">$1.</span> $2</p>');
+text = text.replace(/(?:^|\n)(Step\s\d+):\s(.*?)(?=\n|$)/gi, '<p class="ml-4"><span class="font-bold text-black">$1:</span> $2</p>');
 
-text =  text.replace(/\*/g, '<p class="border-t border-gray-400 w-70 px-5 my-10"></p>');
+text =  text.replace(/\*/g, '<p class="border-t border-gray-300 w-70 px-5 my-10"></p>');
 
 // Convert Unordered Lists (- Item or • Item)
-text = text.replace(/(?:^|\n)[-•]\s(.*?)(?=\n|$)/g, '<p class="ml-4"><span class="text-gray-500">•</span> $1</p>');
+text = text.replace(/(?:^|\n)[-•]\s(.*?)(?=\n|$)/g, '<p class="ml-4"><span class="text-black">•</span> $1</p>');
 
 // Preserve new lines as separate paragraphs
 text = text.split("\n").map(line => `<p class="mb-2">${line}</p>`).join("");
@@ -60,9 +61,9 @@ let lines = text.split(/(?:\s|^)(\d+\..*?)(?=\s\d+\.|\s*$)/g).filter(line => lin
 
 let formattedText = lines.map(line => {
     // Handle Markdown Formatting
-    line = line.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-orange-500">$1</span>'); // Bold
-    line = line.replace(/\*(.*?)\*/g, '<span class="italic text-blue-500">$1</span>'); // Italic
-    line = line.replace(/`([^`]+)`/g, '<code class="bg-gray-200 px-1 rounded">$1</code>'); // Inline Code
+    line = line.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-black">$1</span>'); // Bold
+    line = line.replace(/\*(.*?)\*/g, '<span class="italic text-black">$1</span>'); // Italic
+    line = line.replace(/`([^`]+)`/g, '<code class="bg-black px-1 rounded">$1</code>'); // Inline Code
 
     return `<p class="mb-2">${line}</p>`;
 }).join("");
@@ -88,7 +89,7 @@ return text;
   }, [messages]);
   return (
     <div className="h-screen">
-      <div className="flex h-screen bg-gray-500 text-white">
+      <div className="flex h-screen bg-white text-white">
         <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
         <div className="flex flex-1 flex-col">
@@ -98,7 +99,7 @@ return text;
           >
             <GiHamburgerMenu />
           </button>
-          <div className="flex-1 p-6 mb-20 md:mb-0">
+          <div className="flex-1 p-2 mb-20 md:mb-0">
             <Header />
 
             {loading ? (
@@ -113,14 +114,14 @@ return text;
                   messages.map((e, i) => (
                     <div key={i}>
                     <div className="flex justify-end ">
-                      <div className="question123 max-w-max mb-4 p-2 rounded bg-blue-700 text-white">
+                      <div className="question123 max-w-max mb-4 p-2 rounded bg-gray-200 text-black">
                         
 
                         {e.question}
                       </div>
                       </div>
                      
-                      <div className="mb-4 p-4 rounded bg-gray-700 text-white">
+                      <div className="mb-4 p-4 rounded bg-gray-200 text-black">
                        
 
                         <p dangerouslySetInnerHTML={{ __html: formatMarkdown(e.answer) }}></p>
@@ -128,32 +129,37 @@ return text;
                     </div>
                   ))
                 ) : (
-                  <p>no chat yet</p>
+                  // Centered Image When No Messages
+          <div className="flex flex-col items-center justify-center h-full">
+          <img
+            src={happybeam} // Replace with your image
+            alt="No Chats Yet"
+            className="w-32 h-32   text-yellow-600 mb-4"
+          />
+          <p className="text-gray-400 text-lg">No chats yet, start a conversation!</p>
+        </div>
                 )}
 
                 {newRequestloading && <LoadingSmall />}
               </div>
             )}
-            <div
-              className="fixed bottom-1   p-1 bg-gray-500 w-full 
-      md:w-[70%]"
-            >
-              <form action="" className="flex " onSubmit={submitHandler}>
-                <input
-                  className="flex-grow pr-1 p-4 bg-gray-700 rounded text-white outline-none"
-                  type="text"
-                  placeholder="enter a promt here"
-                  value={prompt}
-                  onChange={(e) => {
-                    setPrompt(e.target.value);
-                  }}
-                  required
-                />
-                <button className="p-4 bg-gray-700 rounded-r text-2xl text-white">
-                  <IoMdSend />
-                </button>
-              </form>
-            </div>
+               <div className="fixed bottom-1 w-full p-2 shadow-lg md:w-[73%]">
+  <form className="flex items-center bg-gray-800 rounded-lg  shadow-[0_4px_10px_rgba(128,128,128,0.5),0_-4px_10px_rgba(128,128,128,0.5),4px_0_10px_rgba(128,128,128,0.5),-4px_0_10px_rgba(128,128,128,0.5)] px-4 py-2" onSubmit={submitHandler}>
+    <input
+      className="flex-grow p-4 text-white bg-transparent outline-none placeholder-gray-300"
+      type="text"
+      placeholder="Enter a prompt here..."
+      value={prompt}
+      onChange={(e) => setPrompt(e.target.value)}
+      required
+      onKeyDown={(e) => {
+        if (e.key === "Enter") submitHandler(e);
+      }}
+    />
+    <IoMdSend className="text-2xl text-white cursor-pointer hover:text-gray-300" onClick={submitHandler} />
+  </form>
+</div>
+
           </div>
         </div>
       </div>

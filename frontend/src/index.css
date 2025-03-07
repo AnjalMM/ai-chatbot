@@ -233,3 +233,15 @@ body::-webkit-scrollbar{
     object-fit: cover;
     
 }
+
+.bgimghome{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* background: url('https://source.unsplash.com/1600x900/?technology,futuristic') no-repeat center center; */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; 
+}
+
