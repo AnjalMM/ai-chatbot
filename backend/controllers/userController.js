@@ -1,18 +1,46 @@
 import sendMail from "../middleware/sendMail.js";
 import {Users} from "../models/user.js";
 import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt'
+
+
+export const signupUser = async (req, res) => {
+  const { fullName, email, password, confirmPassword } = req.body;
+
+  if (!fullName || !email || !password || !confirmPassword) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: "Passwords do not match" });
+  }
+
+  try {
+
+     // ✅ Check if the user already exists
+     const existingUser = await Users.findOne({ email });
+     if (existingUser) {
+       return res.status(400).json({ message: "Email already in use" });
+     }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new Users({ fullName, email, password: hashedPassword });
+    await newUser.save();
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error registering user", error: err });
+  }
+};
 
 export  const loginUser = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email,password} = req.body;
 
     let user = await Users.findOne({ email });
+    if (!user) return res.status(400).json({ message: "User not found" });
 
-    if (!user) {
-      user = await Users.create({
-        email,
-      });
-    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
     const otp = Math.floor(Math.random() * 1000000);
 
