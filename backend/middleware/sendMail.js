@@ -9,6 +9,7 @@ const sendMail = async (email, subject, otp) => {
    }
   });
 
+
   const html =  `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,24 +34,29 @@ const sendMail = async (email, subject, otp) => {
             text-align: center;
         }
         h1 {
-            color: red;
+            color: white;
         }
         p {
             margin-bottom: 20px;
             color: #666;
         }
         .otp {
+            font-style:bold;
             font-size: 36px;
-            color: #7b68ee; /* Purple text */
+            color: green; /* Purple text */
             margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>OTP Verification</h1>
-        <p>Hello ${email} your (One-Time Password) for your account verification is.</p>
+        <h1>OTP VERIFICATION</h1>
+        <p>Hai ${email} </p>
+       <p> Welcome to "ZARA" Here’s your One-Time Password (OTP) to verify your account:</p>
         <p class="otp">${otp}</p> 
+        <P>If you didn’t request this, you can ignore this email.</P>
+        <P>Thank you,</P>
+        <P>Team ZARA</P>
     </div>
 </body>
  </html>

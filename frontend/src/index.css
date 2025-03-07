@@ -2,19 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    margin: 0;
-    padding: 0;
-    
-}
+
 body::-webkit-scrollbar{
     display: none;
 }
-body{
-    
-    
-    @apply bg-slate-900;
-}
+
 
 .thin-scrollbar{
     scrollbar-width: thin;
@@ -26,3 +18,230 @@ body{
     display: none;
     
 }
+
+.wrappermeth{
+   
+    width: 90%;
+   margin-left: 5%;
+   margin-inline: auto;
+   position: relative;
+   height: 100px;
+   margin-top: 5rem;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0,0,0,0),
+    rgba(0,0,0,1) 20%,
+    rgba(0,0,0,1) 80%,
+    rgba(0,0,0,0)
+  );
+  }
+
+  @keyframes scrollLeft{
+    to{
+        left: -200px;
+
+    }
+  }
+  @keyframes scrollRight{
+    to{
+        right: -200px;
+    }
+  }
+
+  .item{
+    width: 200px;
+    height: 100px;
+    border: 13px solid red;
+    border-radius: 50px;
+    position: absolute;
+    left: calc(200px * 8);
+    animation-name: scrollLeft;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+  }
+
+  .item p{
+    justify-content: center;
+    align-items: center;
+    margin-top: 12%;
+    margin-left: 10px;
+    
+  }
+
+  .item1{
+    animation-delay:calc(30s / 8 * (8 - 1) * -1) ;
+  }
+
+  .item2{
+    animation-delay:calc(30s / 8 * (8 - 2) * -1) ;
+  }
+
+  .item3{
+    animation-delay:calc(30s / 8 * (8 - 3) * -1) ;
+  }
+
+  .item4{
+    animation-delay:calc(30s / 8 * (8 - 4) * -1) ;
+  }
+
+  .item5{
+    animation-delay:calc(30s / 8 * (8 - 5) * -1) ;
+  }
+
+  .item6{
+    animation-delay:calc(30s / 8 * (8 - 6) * -1) ;
+  }
+  .item7{
+    animation-delay:calc(30s / 8 * (8 - 7) * -1) ;
+  }
+
+  .item8{
+    animation-delay:calc(30s / 8 * (8 - 8) * -1) ;
+  }
+
+
+
+.image-wrapper{
+
+    
+    width: 90%;
+   margin-left: 5%;
+   margin-inline: auto;
+   position: relative;
+   height: 170px;
+   margin-top: 5rem;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0,0,0,0),
+    rgba(0,0,0,1) 20%,
+    rgba(0,0,0,1) 80%,
+    rgba(0,0,0,0)
+  );
+  }
+
+
+  .img{
+    width: 200px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 6px;
+    position: absolute;
+    right: 1546px;
+    animation-name: scrollRight;
+    animation-duration: 15s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .img1{
+    animation-delay:calc(15s / 8 * (8 - 1) * -1) ;
+  }
+  .img2{
+    animation-delay:calc(15s / 8 * (8 - 2) * -1) ;
+  }
+  .img3{
+    animation-delay:calc(15s / 8 * (8 - 3) * -1) ;
+  }
+  .img4{
+    animation-delay:calc(15s / 8 * (8 - 4) * -1) ;
+  }
+  .img5{
+    animation-delay:calc(15s / 8 * (8 - 5) * -1) ;
+  }
+  .img6{
+    animation-delay:calc(15s / 8 * (8 - 6) * -1) ;
+  }
+  .img7{
+    animation-delay:calc(15s / 8 * (8 - 7) * -1) ;
+  }
+  .img8{
+    animation-delay:calc(15s / 8 * (8 - 8) * -1) ;
+  }
+
+
+.img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+
+.faicons{
+    
+    width: 90%;
+   margin-left: 5%;
+   margin-inline: auto;
+   position: relative;
+   height: 100px;
+   margin-top: 5rem;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0,0,0,0),
+    rgba(0,0,0,1) 20%,
+    rgba(0,0,0,1) 80%,
+    rgba(0,0,0,0)
+  );
+}
+
+.svgai{
+    width: 100px;
+    height: 100px;
+    
+    border-radius: 50px;
+    position: absolute;
+    left: calc(200px * 8);
+    animation-name: scrollLeft;
+    animation-duration: 20s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;   
+}
+
+.svgai1{
+    animation-delay:calc(20s / 8 * (8 - 1) * -1) ;
+}
+.svgai2{
+    animation-delay:calc(20s / 8 * (8 - 2) * -1) ;
+}
+.svgai3{
+    animation-delay:calc(20s / 8 * (8 - 3) * -1) ;
+}
+.svgai4{
+    animation-delay:calc(20s / 8 * (8 - 4) * -1) ;
+}
+.svgai5{
+    animation-delay:calc(20s / 8 * (8 - 5) * -1) ;
+}
+.svgai6{
+    animation-delay:calc(20s / 8 * (8 - 6) * -1) ;
+}
+.svgai7{
+    animation-delay:calc(20s / 8 * (8 - 7) * -1) ;
+}
+.svgai8{
+    animation-delay:calc(20s / 8 * (8 - 8) * -1) ;
+}
+
+.svgai img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+}
+
+.bgimghome{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* background: url('https://source.unsplash.com/1600x900/?technology,futuristic') no-repeat center center; */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; 
+}
+

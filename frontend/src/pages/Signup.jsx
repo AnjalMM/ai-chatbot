@@ -6,16 +6,24 @@ import { UserData } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../components/Loading";
 
-
-export function Login() {
+export default function Signup() {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loginUser, btnLoading } = UserData();
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const { signupUser, btnLoading } = UserData();
   const navigate = useNavigate();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    loginUser(email, password, navigate);
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match!");
+      return;
+    }
+    setErrorMessage("");
+    signupUser(fullName, email, password, confirmPassword, navigate);
   };
 
   const togglePassword = (fieldId) => {
@@ -28,16 +36,27 @@ export function Login() {
   return (
     <div
       className="bgimghome flex items-center justify-center min-h-screen bg-cover bg-center relative"
-      style={{ backgroundImage: "url('https://static.vecteezy.com/system/resources/thumbnails/002/207/821/small_2x/dark-blue-modern-technology-background-free-vector.jpg')",
-       
+      style={{ backgroundImage: "url('https://informationage-production.s3.amazonaws.com/uploads/2022/10/how-can-technology-design-be-made-more-inclusive.jpeg')",
        }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
       <div className="relative z-10 w-full max-w-md bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-2xl shadow-lg border border-gray-300">
-        <h2 className="text-3xl font-bold text-center text-white">Login</h2>
+        <h2 className="text-3xl font-bold text-center text-white">Sign Up</h2>
 
         <form className="mt-6" onSubmit={submitHandler}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-200">Full Name</label>
+            <input
+              type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              className="w-full p-3 mt-1 bg-transparent border border-gray-300 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-200">Email</label>
             <input
@@ -54,7 +73,7 @@ export function Login() {
             <label className="block text-sm font-medium text-gray-200">Password</label>
             <div className="relative">
               <input
-                id="login-password"
+                id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -64,29 +83,52 @@ export function Login() {
               />
               <span
                 className="absolute right-4 top-4 text-gray-300 cursor-pointer"
-                onClick={() => togglePassword("login-password")}
+                onClick={() => togglePassword("password")}
               >
                 👁
               </span>
             </div>
           </div>
 
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-200">Confirm Password</label>
+            <div className="relative">
+              <input
+                id="confirm-password"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full p-3 mt-1 bg-transparent border border-gray-300 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="••••••••"
+                required
+              />
+              <span
+                className="absolute right-4 top-4 text-gray-300 cursor-pointer"
+                onClick={() => togglePassword("confirm-password")}
+              >
+                👁
+              </span>
+            </div>
+          </div>
+
+          {errorMessage && <p className="text-red-400 text-sm mb-4">{errorMessage}</p>}
+
           <button
             type="submit"
             disabled={btnLoading}
             className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 rounded-lg font-semibold hover:from-indigo-500 hover:to-blue-500 transition duration-300"
           >
-            {btnLoading ? <LoadingSpinner /> : "Login"}
+            {btnLoading ? <LoadingSpinner /> : "Sign Up"}
           </button>
         </form>
 
         <p className="mt-4 text-sm text-center text-gray-300">
-          Don&apos;t have an account?{" "}
+          Already have an account?{" "}
           <span
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/login")}
             className="text-blue-400 hover:underline cursor-pointer"
           >
-            Sign Up
+            Login
           </span>
         </p>
       </div>

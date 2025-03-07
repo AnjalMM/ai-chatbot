@@ -12,10 +12,29 @@ const UserContext = createContext()
  export const  UserProvider = ({children}) =>{
     const [btnLoading, setBtnLoading] = useState(false);
     
-    async function loginUser(email, navigate) {
+
+    async function signupUser(fullName, email, password, confirmPassword, navigate) {
+      setBtnLoading(true);
+      try {
+        const { data } = await axios.post(`${server}/api/users/signup`, {
+          fullName,
+          email,
+          password,
+          confirmPassword,
+        });
+  
+        toast.success(data.message); // Show success toast message
+        navigate("/login"); // Redirect to login after successful signup
+      } catch (error) {
+        toast.error(error.response?.data?.message || "Signup failed");
+      }
+      setBtnLoading(false);
+    }
+
+    async function loginUser(email,password, navigate) {
         setBtnLoading(true);
         try {
-          const { data } = await axios.post(`${server}/api/users/login`, { email });
+          const { data } = await axios.post(`${server}/api/users/login`, { email, password});
           console.log(data);
           
           toast.success(data.message)
@@ -45,10 +64,12 @@ const UserContext = createContext()
           toast.success(data.message);
           localStorage.clear();
           localStorage.setItem("token", data.token);
-          navigate("/");
+          navigate("/chat");
           setBtnLoading(false);
           setIsAuth(true)
           setUser(data.user)
+          console.log("verifyforing ",data);
+          
           fetchChats()
         } catch (error) {
           toast.error(error.response.data.message);
@@ -76,6 +97,28 @@ const UserContext = createContext()
     }
   }
 
+  const uploadProfilePicture = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return console.error("No file selected");
+
+    console.log("Uploading file:", file); // Debug log
+
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    const token = localStorage.getItem("token");
+    if (!token) return console.error("No token found");
+
+    try {
+      const { data } = await axios.post(`${server}/api/users/uploadprofile`, formData, {
+        headers: { "Content-Type": "multipart/form-data", token: localStorage.getItem("token") },
+      });
+      setUser((prev) => ({ ...prev, profilePicture: data.profilePicture }));
+    } catch (error) {
+      console.error("Error uploading profile picture", error);
+    }
+  };
+
   const logoutHandler = (navigate) => {
     localStorage.clear();
 
@@ -91,10 +134,11 @@ const UserContext = createContext()
   }, []);
 
     return (
-        <UserContext.Provider value={{loginUser,btnLoading,isAuth,setIsAuth,user,verifyUser,loading,logoutHandler}}>
+        <UserContext.Provider value={{signupUser,loginUser,btnLoading,isAuth,setIsAuth,user,verifyUser,loading,logoutHandler,fetchUser,uploadProfilePicture}}>
             {children}
         </UserContext.Provider>
     )
 }
+
 
 export const UserData =() => useContext(UserContext)
