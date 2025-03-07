@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div>
         <p className='text-lg mb-6'>Hello, how can i help you ?</p>
-         {chats && chats.length === 0 && (<p className='text-lg mb-6'>Create new chat to continue</p> )}
+         {chats && chats.length === 0 && (<p className='text-lg mb-6'>Create new chat to continue ...</p> )}
     </div>
   )
 }

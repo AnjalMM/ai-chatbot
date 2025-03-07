@@ -16,6 +16,12 @@ export const ChatProvider = ({ children }) => {
   const [newRequestloading, setnewRequestloading] = useState(false);
 
   async function fetchResponse() {
+
+    if (!selected) {
+      toast.error("⚠️ You must create a new chat first!");
+      return;
+    }
+
     if (prompt === "") return alert("write prompt");
     setnewRequestloading(true);
     setPrompt("");
@@ -103,14 +109,14 @@ export const ChatProvider = ({ children }) => {
     try {
       const { data } = await axios.get(
         `${server}/api/chat/${selected}`,
-        {},
         {
           headers: {
             token: localStorage.getItem("token"),
           },
         }
       );
-      setinform(data);
+      // setinform(data);
+      setMessages(data)
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -146,6 +152,7 @@ export const ChatProvider = ({ children }) => {
       value={{
         fetchResponse,
         messages,
+        setMessages,
         prompt,
         setPrompt,
         newRequestloading,
@@ -166,3 +173,4 @@ export const ChatProvider = ({ children }) => {
 };
 
 export const ChatData = () => useContext(chatContext);
+

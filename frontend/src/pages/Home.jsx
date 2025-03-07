@@ -24,7 +24,52 @@ export function Home() {
     newRequestloading,
     loading,
     chats,
+    setselected
   } = ChatData();
+
+  function formatMarkdown(text) {
+
+    // Convert code blocks to Prettier formatted code
+    text = text.replace(/```([\s\S]*?)```/g, 
+    '<pre class="bg-gray-800 text-white p-4 rounded overflow-x-auto overflow-y-auto max-h-96 whitespace-pre-wrap w-full"><code class="whitespace-pre-wrap">$1</code></pre>');
+//    whitespace-pre-wrap
+    // bg-gray-800 text-white p-4 rounded overflow-x-auto overflow-y-auto max-h-96 whitespace-pre-wrap w-full
+// Convert inline `code` to Tailwind-styled <code>
+text = text.replace(/`([^`]+)`/g, '<code class="bg-gray-200 px-1 rounded">$1</code>');
+
+// Convert **bold** to Tailwind-styled <p class="font-bold">
+text = text.replace(/\*\*(.*?)\*\*/g, '<p class="font-bold text-orange-500">$1</p>');
+
+// Convert *italic* to Tailwind-styled <p class="italic">
+text = text.replace(/\*(.*?)\*/g, '<p class="italic text-blue-500">$1</p>');
+
+// Convert Ordered Lists (1. or Step 1:)
+text = text.replace(/(?:^|\n)(\d+)\.\s(.*?)(?=\n|$)/g, '<p class="ml-4"><span class="font-bold text-purple-500">$1.</span> $2</p>');
+text = text.replace(/(?:^|\n)(Step\s\d+):\s(.*?)(?=\n|$)/gi, '<p class="ml-4"><span class="font-bold text-green-500">$1:</span> $2</p>');
+
+text =  text.replace(/\*/g, '<p class="border-t border-gray-400 w-70 px-5 my-10"></p>');
+
+// Convert Unordered Lists (- Item or • Item)
+text = text.replace(/(?:^|\n)[-•]\s(.*?)(?=\n|$)/g, '<p class="ml-4"><span class="text-gray-500">•</span> $1</p>');
+
+// Preserve new lines as separate paragraphs
+text = text.split("\n").map(line => `<p class="mb-2">${line}</p>`).join("");
+
+// Split text by detecting numbers followed by a dot (1., 2., 3., etc.)
+let lines = text.split(/(?:\s|^)(\d+\..*?)(?=\s\d+\.|\s*$)/g).filter(line => line.trim() !== "");
+
+let formattedText = lines.map(line => {
+    // Handle Markdown Formatting
+    line = line.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-orange-500">$1</span>'); // Bold
+    line = line.replace(/\*(.*?)\*/g, '<span class="italic text-blue-500">$1</span>'); // Italic
+    line = line.replace(/`([^`]+)`/g, '<code class="bg-gray-200 px-1 rounded">$1</code>'); // Inline Code
+
+    return `<p class="mb-2">${line}</p>`;
+}).join("");
+
+return text;
+}
+
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -60,26 +105,25 @@ export function Home() {
               <LoadingBig />
             ) : (
               <div
-                className="p-6 max-h-[530px] overflow-auto 
+                className="p-6 h-[80vh] overflow-y-auto 
          thin-scrollbar23 "
                 ref={messagecontainerRef}
               >
                 {messages && messages.length > 0 ? (
                   messages.map((e, i) => (
                     <div key={i}>
-                      <div className="mb-4 p-4 rounded bg-blue-700 text-white">
-                        <div className="bg-white p-2 rounded-full text-black text-2xl h-10">
-                          <CgProfile />
-                        </div>
+                    <div className="flex justify-end ">
+                      <div className="question123 max-w-max mb-4 p-2 rounded bg-blue-700 text-white">
+                        
 
                         {e.question}
                       </div>
+                      </div>
+                     
                       <div className="mb-4 p-4 rounded bg-gray-700 text-white">
-                        <div className="bg-white p-2 rounded-full text-black text-2xl h-10">
-                          <FaRobot />
-                        </div>
+                       
 
-                        <p dangerouslySetInnerHTML={{ __html: e.answer }}></p>
+                        <p dangerouslySetInnerHTML={{ __html: formatMarkdown(e.answer) }}></p>
                       </div>
                     </div>
                   ))

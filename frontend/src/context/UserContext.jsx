@@ -12,10 +12,29 @@ const UserContext = createContext()
  export const  UserProvider = ({children}) =>{
     const [btnLoading, setBtnLoading] = useState(false);
     
-    async function loginUser(email, navigate) {
+
+    async function signupUser(fullName, email, password, confirmPassword, navigate) {
+      setBtnLoading(true);
+      try {
+        const { data } = await axios.post(`${server}/api/users/signup`, {
+          fullName,
+          email,
+          password,
+          confirmPassword,
+        });
+  
+        toast.success(data.message); // Show success toast message
+        navigate("/login"); // Redirect to login after successful signup
+      } catch (error) {
+        toast.error(error.response?.data?.message || "Signup failed");
+      }
+      setBtnLoading(false);
+    }
+
+    async function loginUser(email,password, navigate) {
         setBtnLoading(true);
         try {
-          const { data } = await axios.post(`${server}/api/users/login`, { email });
+          const { data } = await axios.post(`${server}/api/users/login`, { email, password});
           console.log(data);
           
           toast.success(data.message)
@@ -45,7 +64,7 @@ const UserContext = createContext()
           toast.success(data.message);
           localStorage.clear();
           localStorage.setItem("token", data.token);
-          navigate("/");
+          navigate("/chat");
           setBtnLoading(false);
           setIsAuth(true)
           setUser(data.user)
@@ -91,7 +110,7 @@ const UserContext = createContext()
   }, []);
 
     return (
-        <UserContext.Provider value={{loginUser,btnLoading,isAuth,setIsAuth,user,verifyUser,loading,logoutHandler}}>
+        <UserContext.Provider value={{signupUser,loginUser,btnLoading,isAuth,setIsAuth,user,verifyUser,loading,logoutHandler}}>
             {children}
         </UserContext.Provider>
     )

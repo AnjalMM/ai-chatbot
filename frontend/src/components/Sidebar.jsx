@@ -8,7 +8,7 @@ import { LoadingSpinner } from './Loading';
 import { UserData } from '../context/UserContext';
 
 const Sidebar =({isOpen,toggleSidebar})=> {
-    const {chats , createChat,createLod,setselected,deleteChat}= ChatData()
+    const {chats , createChat,createLod,setselected,deleteChat,messages,setMessages}= ChatData()
 
     const {logoutHandler}= UserData()
 
@@ -17,6 +17,12 @@ const Sidebar =({isOpen,toggleSidebar})=> {
             deleteChat(id)
           }
     }
+
+
+    // const clickEvent =(id)=>{
+    //      setselected(id)
+    //      console.log(localStorage.getItem("token"))
+    // }
   return (
     <div className={`fixed inset-0 bg-gray-800 p-4 transition-transform transform md:relative md:translate-x-0 md:w-1/4 md:block ${isOpen?"translate-x-0":
         "-translate-x-full"

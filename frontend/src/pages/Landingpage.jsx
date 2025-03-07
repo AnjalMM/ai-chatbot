@@ -12,8 +12,11 @@ import microchipai from '../assets/microchip-ai.svg'
 // import screen from '../assets/screen.svg'
 // import userrobot from '../assets/user-robot.svg'
 import wifi from '../assets/wifi-password.svg'
+import { useNavigate } from 'react-router-dom'
 
 export default function Landingpage() {
+
+  const navigate = useNavigate();
   return (
     
          <div className="bg-gray-50 m-0 p-0 box-border">
@@ -21,7 +24,7 @@ export default function Landingpage() {
       <nav className="fixed flex justify-end items-center bg-white/10 backdrop-blur-lg shadow-lg py-2 w-full z-10">
         <div className="flex space-x-4 mr-5">
            
-           <ul className='flex gap-8 px-52 text-xl pt-3 font-extrabold leading-relaxed text-blue-900'>
+           <ul className='flex gap-8 px-52 text-xl pt-2 pb-2 font-extrabold leading-relaxed text-blue-900'>
                <li><a href="">Home</a></li>
                <li><a href="">Features</a></li>
                <li><a href="">How its Working</a></li>
@@ -30,8 +33,8 @@ export default function Landingpage() {
            </ul>
          
           
-          <button className="px-4 py-2  border bg-blue-300 border-gray-500 text-blue-900 rounded-full shadow-lg hover:bg-white hover:text-blue-600">Sign In</button>
-          <button className="px-4 py-2 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200">Sign Up</button>
+          <a onClick={()=>navigate("/login")} className="px-4 pt-3 py-2  border bg-blue-300 border-gray-500 text-blue-900 rounded-full shadow-lg hover:bg-white hover:text-blue-600">Sign In</a>
+          <a onClick={()=>{navigate("/signup")}} className="px-4 pt-3 py-2 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200">Sign Up</a>
         </div>
       </nav>
       
