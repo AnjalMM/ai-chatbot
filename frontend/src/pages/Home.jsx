@@ -136,11 +136,13 @@ return text;
             alt="No Chats Yet"
             className="w-32 h-32   text-yellow-600 mb-4"
           />
-          <p className="text-gray-400 text-lg">No chats yet, start a conversation!</p>
+          <p className="text-gray-400 pt-2 text-lg">No chats yet, start a conversation!</p>
         </div>
                 )}
-
-                {newRequestloading && <LoadingSmall />}
+                  <div className="mb-5">
+                  {newRequestloading && <LoadingSmall />}
+                  </div>
+              
               </div>
             )}
                <div className="fixed bottom-1 w-full p-2 shadow-lg md:w-[73%]">
