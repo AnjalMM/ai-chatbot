@@ -9,6 +9,7 @@ import { FaRobot } from "react-icons/fa";
 import { LoadingBig, LoadingSmall } from "../components/Loading";
 import { IoMdSend } from "react-icons/io";
 import happybeam from '../assets/happy-beaming.svg'
+import logochat2 from '../assets/logochat2.png'
 
 export function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -132,7 +133,7 @@ return text;
                   // Centered Image When No Messages
           <div className="flex flex-col items-center justify-center h-full">
           <img
-            src={happybeam} // Replace with your image
+            src={logochat2} // Replace with your image
             alt="No Chats Yet"
             className="w-32 h-32   text-yellow-600 mb-4"
           />
