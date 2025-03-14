@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { UserData } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../components/Loading";
+import { ArrowLeft } from "lucide-react";
 
 
 export function Login() {
@@ -33,6 +34,15 @@ export function Login() {
        }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+
+      {/* Back Arrow Button */}
+      <button
+        className="absolute top-4 left-4 flex items-center text-white bg-gray-700 p-2 rounded-full hover:bg-gray-600 transition"
+        onClick={() => navigate("/")}
+      >
+        <ArrowLeft size={24} />
+      </button>
 
       <div className="relative z-10 w-full max-w-md bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-2xl shadow-lg border border-gray-300">
         <h2 className="text-3xl font-bold text-center text-white">Login</h2>

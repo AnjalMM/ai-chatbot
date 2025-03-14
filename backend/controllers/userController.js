@@ -4,27 +4,25 @@ import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt'
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
+import { S3Client } from "@aws-sdk/client-s3";
+import crypto from "crypto";
+import { extname } from "path";
+import { Upload } from "@aws-sdk/lib-storage";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
-// ✅ Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
-});
-
-
-// ✅ Multer Storage for Cloudinary
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "profile_pictures",
-    format: async () => "png", // Change format if needed
-    public_id: (req, file) => `user_${req.user.id}_${Date.now()}`, // Unique filename
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
 });
 
-export const upload = multer({ storage });
+
+
+// Multer storage (memory for direct S3 upload)
+export const upload = multer({ storage: multer.memoryStorage() });
+
 
 
 export const signupUser = async (req, res) => {
@@ -143,29 +141,30 @@ export const getProfile = async (req, res) => {
   }
 };
 
-export const uploadPic = async (req,res)=>{
 
-  console.log("Received file:", req.file); // Debug log
+export const uploadPic = async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ message: "No file uploaded" });
+      return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const user = await Users.findById(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    const fileName = `profiles/${crypto.randomBytes(16).toString("hex")}${extname(req.file.originalname)}`;
 
-    // ✅ Save image URL in the database
-    user.profilePicture = req.file.path || req.file.secure_url;
-    await user.save();
+    const uploadParams = {
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: fileName,
+      Body: req.file.buffer,
+      ContentType: req.file.mimetype,
+      ACL: "public-read",
+    };
 
-    res.json({
-      message: "Profile picture updated successfully",
-      profilePicture: user.profilePicture,
-    });
+    await new Upload({ client: s3, params: uploadParams }).done();
+
+    const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+
+    res.json({ url: fileUrl });
   } catch (error) {
-    console.error("Upload Error:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error("S3 Upload Error:", error);
+    res.status(500).json({ error: "File upload failed" });
   }
-}
+};
